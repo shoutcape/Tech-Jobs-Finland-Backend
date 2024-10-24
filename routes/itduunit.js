@@ -1,21 +1,18 @@
 const express = require('express');
 const router = express.Router();
 
-
-
-
 router.get('/:pageNumber', async (req, res) => {
   let fetchedJobs = [];
   let next = true;
-  let count = null
+  let count = null;
   const fetchJobs = async (pageNumber = req.params.pageNumber) => {
-const itDuunitApi = `https://duunitori.fi/api/v1/fdfadafa0ccb207844460fe7a7b9c73ecc9d1a04/jobentries?area=&format=json&page=${pageNumber}&page_size=100&search=&t=1729175939&tag0=tieto-+ja+tietoliikennetekniikka`
+    const itDuunitApi = `https://duunitori.fi/api/v1/fdfadafa0ccb207844460fe7a7b9c73ecc9d1a04/jobentries?area=&format=json&page=${pageNumber}&page_size=100&search=&t=1729175939&tag0=tieto-+ja+tietoliikennetekniikka`;
     const response = await fetch(itDuunitApi);
     const data = await response.json();
     fetchedJobs.push(...data.results);
-    count = data.count
+    count = data.count;
     if (!data.next) {
-      next = false
+      next = false;
     }
   };
   try {
